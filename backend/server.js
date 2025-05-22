@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import placeRoutes from './routes/placeRoutes.js';
 import restaurantRoutes from './routes/restaurantRoutes.js'
 import hotelRoutes from "./routes/hotelRoutes.js";
+import selectedPlaceRoutes from "./routes/selectedPlaceRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api', placeRoutes);
 app.use('/api/restaurants', restaurantRoutes);
 app.use('/api/hotels', hotelRoutes);
+app.use("/api/user-places", selectedPlaceRoutes);
+
 
 app.get("/",(req,res)=>{
   res.send("Welcome to world explorer")
