@@ -1,0 +1,40 @@
+# General
+.DS_Store
+Thumbs.db
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.*.local
+
+# Dependency directories
+frontend/node_modules/
+backend/node_modules/
+
+# Build outputs
+frontend/dist/
+frontend/build/
+backend/dist/
+backend/build/
+
+# Testing
+coverage/
+*.lcov
+
+# MongoDB dump files
+dump/
+
+# Package manager locks (optional, if you prefer to ignore them)
+# package-lock.json
+# yarn.lock
