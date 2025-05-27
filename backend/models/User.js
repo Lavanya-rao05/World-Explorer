@@ -5,12 +5,6 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ['user', 'admin'], default: 'user' },
-  preferences: {
-    interests: [String],
-    budget: { type: String, enum: ['low', 'medium', 'high'] },
-  },
-  savedItineraries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Itinerary' }]
 });
 
 // Password hash
