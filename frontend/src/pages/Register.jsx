@@ -22,7 +22,7 @@ const Register = () => {
     }
 
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/register', { name, email, password });
+      const { data } = await axios.post('https://qw3js3n6-5000.inc1.devtunnels.ms/api/auth/register', { name, email, password });
       login(data); // Save user info and token in context/localStorage
       navigate('/planner'); // Redirect after registration
     } catch (err) {
@@ -31,52 +31,70 @@ const Register = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded shadow-md">
-      <h2 className="text-2xl mb-4 font-semibold">Create an Account</h2>
-      {error && <p className="mb-4 text-red-600">{error}</p>}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400/40 to-blue-400/40 backdrop-blur-sm">
+      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl border border-gray-200">
+        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">Create an Account</h2>
+        {error && <p className="mb-4 text-red-600 text-sm text-center">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Full Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full px-3 py-2 border rounded"
-          required
-        />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <label
+            className="block text-gray-700 text-sm font-semibold mb-2"
+            htmlFor="name"
+          >
+            Name
+          </label>
+          <input
+            type="text"
+            placeholder="John"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            required
+          />
+          <label
+            className="block text-gray-700 text-sm font-semibold mb-2"
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            placeholder="john@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            required
+          />
+          <label
+            className="block text-gray-700 text-sm font-semibold mb-2"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            placeholder="********"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            required
+          />
 
-        <input
-          type="email"
-          placeholder="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-2 border rounded"
-          required
-        />
+          <button
+            type="submit"
+            className="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition"
+          >
+            Register
+          </button>
+        </form>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-3 py-2 border rounded"
-          required
-        />
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-        >
-          Register
-        </button>
-      </form>
-
-      <p className="mt-4 text-center">
-        Already have an account?{' '}
-        <Link to="/login" className="text-blue-600 hover:underline">
-          Login here
-        </Link>
-      </p>
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Already have an account?{' '}
+          <Link to="/login" className="text-purple-600 hover:underline font-medium">
+            Login here
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

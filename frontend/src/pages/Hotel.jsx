@@ -42,13 +42,15 @@ export default function Hotels() {
     );
   };
 
-  const handleNext = () => {
-    localStorage.setItem("selectedHotels", JSON.stringify(selected));
-    navigate('/CustomMap');  // or next route after hotels
-    
-  };
+  const handleNext = async () => {
+  localStorage.setItem("selectedHotels", JSON.stringify(selected));
+  await saveSelections();  // if this is async and required
+  navigate('/CustomMap');
+};
 
-  if (loading) return <div className="p-6 text-center">Loading hotels...</div>;
+  if (loading) return        <div className="flex justify-center items-center h-32">
+  <div className="loader"></div>
+</div>;
 
   return (
     <div className="p-6 max-w-full mx-auto bg-gray-900">
@@ -99,10 +101,7 @@ export default function Hotels() {
       <div className="mt-6 mr-5">
         <div className="mt-6 flex justify-end pr-5">
           <button
-            onClick={async () => {
-              await saveSelections();
-              navigate("/CustomMap");
-            }}
+            onClick={handleNext}
             className="bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 text-white px-6 py-3 rounded-xl text-lg shadow-md hover:shadow-lg transition-all duration-300 hover:from-green-600 hover:to-teal-700"
           >
             Final Plan

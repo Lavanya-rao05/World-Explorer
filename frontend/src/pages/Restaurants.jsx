@@ -52,9 +52,9 @@ export default function Restaurants() {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-screen text-lg font-semibold text-gray-700">
-        Loading restaurants...
-      </div>
+              <div className="flex justify-center items-center h-32">
+  <div className="loader"></div>
+</div>
     );
   
 
@@ -128,6 +128,7 @@ export default function Restaurants() {
         </button>
         <button
           onClick={async () => {
+            localStorage.setItem("selectedRestaurants", JSON.stringify(selected));
             await saveSelections();
             navigate("/CustomMap");
           }}

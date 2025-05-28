@@ -28,7 +28,7 @@ const Explore = () => {
         setResults(res.data.hotels || []);
       } else if (category === "restaurants") {
         res = await axios.get(
-          `https://qw3js3n6-5000.inc1.devtunnels.ms/api/restaurants`,
+          "https://qw3js3n6-5000.inc1.devtunnels.ms/api/restaurants",
           {
             params: { city: location },
           }
@@ -40,14 +40,13 @@ const Explore = () => {
           {
             params: {
               textQuery: `best places in ${location}`,
-              latitude: 12.9141, // You can fetch dynamically
+              latitude: 12.9141,
               longitude: 74.856,
               radius: 50000,
               openNow: false,
             },
           }
         );
-
         setResults(res.data.places || res.data.categorizedPlaces || []);
       }
     } catch (err) {
@@ -59,13 +58,16 @@ const Explore = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white p-6">
-      <div className="max-w-3xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold text-center">🌍 Explore the World</h1>
+    <div className="min-h-screen w-full bg-[#0f172a] text-white p-4 sm:p-6 overflow-x-hidden">
+      <div className="max-w-5xl mx-auto space-y-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center">
+          🌍 Explore the World
+        </h1>
 
-        <div className="bg-[#1e293b] p-6 rounded-xl shadow-lg space-y-4">
+        {/* Search Bar */}
+        <div className="flex flex-col sm:flex-row bg-[#1e293b] p-3 rounded-2xl shadow-lg gap-3 items-stretch sm:items-center">
           <select
-            className="w-full p-3 bg-[#334155] border border-gray-600 rounded-md text-white focus:outline-none"
+            className="p-3 bg-[#334155] border border-gray-600 rounded-full text-white focus:outline-none"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -77,7 +79,7 @@ const Explore = () => {
           <input
             type="text"
             placeholder="Enter a location (e.g. Mangalore)"
-            className="w-full p-3 bg-[#334155] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none"
+            className="flex-1 p-3 bg-[#334155] border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
@@ -85,27 +87,27 @@ const Explore = () => {
           <button
             onClick={handleSearch}
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-full transition"
           >
             {loading ? "Searching..." : "🔍 Search"}
           </button>
-
-          {error && <p className="text-red-400 text-center">{error}</p>}
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {loading && (
+          <div className="flex justify-center items-center h-20">
+            <div className="loader"></div>
+          </div>
+        )}
+
+        {error && <p className="text-red-400 text-center">{error}</p>}
+
+        {/* Result Section */}
+        <div className="mt-8 scrollbar-hide space-y-6 pr-2">
           {results.map((item, idx) => (
             <div
               key={idx}
-              className="bg-[#1e293b] p-4 rounded-lg shadow-md hover:scale-[1.02] transition-transform"
+              className="bg-[#1e293b] rounded-3xl shadow-xl flex flex-col sm:flex-row items-center sm:items-start overflow-hidden hover:shadow-2xl transition-shadow duration-300"
             >
-              <h2 className="text-lg font-semibold">
-                {item.name || "Unnamed"}
-              </h2>
-              {item.address && (
-                <p className="text-sm text-gray-400">{item.address}</p>
-              )}
-
               {(item.photo_url ||
                 item.photoUrl ||
                 (Array.isArray(item.images) && item.images[0])) && (
@@ -116,13 +118,38 @@ const Explore = () => {
                     (Array.isArray(item.images) ? item.images[0] : "")
                   }
                   alt={item.name}
-                  className="w-full h-40 object-cover mt-3 rounded-md"
+                  className="w-full sm:w-72 h-64 object-cover rounded-3xl p-3"
                 />
               )}
+              <div className="p-6 w-full">
+                <h2 className="text-xl sm:text-2xl font-bold mt-3">
+                  {item.name || "Unnamed"}
+                </h2>
+                {item.address && (
+                  <p className="text-gray-400 text-lg mt-4">{item.address}</p>
+                )}
+                {(item.user_ratings_total || item.userRatingsTotal) && (
+                  <p className="text-lg text-yellow-600 mt-5">
+                    ⭐ {item.rating || "-"} (
+                    {item.user_ratings_total || item.userRatingsTotal} reviews)
+                  </p>
+                )}
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Custom Tailwind to hide scrollbar */}
+      <style jsx="true">{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 };

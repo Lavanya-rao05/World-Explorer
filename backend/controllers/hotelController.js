@@ -8,7 +8,7 @@ export const getHotelsByCity = async (req, res) => {
   }
 
   const GOOGLE_API_KEY = process.env.GOOGLE_PLACE_API;
-  const RESULTS_PER_PAGE = 10;
+  const RESULTS_PER_PAGE = 24;
 
   try {
     const textSearchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
@@ -27,23 +27,29 @@ export const getHotelsByCity = async (req, res) => {
     }
 
     const startIndex = (pageNumber - 1) * RESULTS_PER_PAGE;
-    const paginatedHotels = allResults.slice(startIndex, startIndex + RESULTS_PER_PAGE);
+    const paginatedHotels = allResults.slice(
+      startIndex,
+      startIndex + RESULTS_PER_PAGE
+    );
 
-    const hotels = paginatedHotels.map((hotel) => ({
-      id: hotel.place_id,
-      name: hotel.name,
-      address: hotel.formatted_address || hotel.vicinity,
-      rating: hotel.rating || null,
-      priceLevel: hotel.price_level || null,
-      types: hotel.types || [],
-      location: hotel.geometry?.location || null,
-      images: hotel.photos?.length
-        ? [
-            `https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=${hotel.photos[0].photo_reference}&key=${GOOGLE_API_KEY}`,
-          ]
-        : [],
-      bookingUrl: `https://www.google.com/maps/place/?q=place_id:${hotel.place_id}`,
-    }));
+    const hotels = paginatedHotels.map((hotel) => {
+      const photoRef = hotel.photos?.[0]?.photo_reference || null;
+      const proxyPhotoUrl = photoRef
+        ? `https://qw3js3n6-5000.inc1.devtunnels.ms/media/places-photo?reference=${photoRef}`
+        : null;
+
+      return {
+        id: hotel.place_id,
+        name: hotel.name,
+        address: hotel.formatted_address || hotel.vicinity || "N/A",
+        rating: hotel.rating || null,
+        priceLevel: hotel.price_level || null,
+        types: hotel.types || [],
+        location: hotel.geometry?.location || null,
+        images: proxyPhotoUrl ? [proxyPhotoUrl] : [],
+        bookingUrl: `https://www.google.com/maps/place/?q=place_id:${hotel.place_id}`,
+      };
+    });
 
     res.json({
       city,

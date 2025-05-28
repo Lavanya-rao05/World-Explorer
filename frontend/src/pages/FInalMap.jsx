@@ -4,7 +4,7 @@ import L from 'leaflet';
 import axios from 'axios';
 import 'leaflet/dist/leaflet.css';
 
-// Icons
+// Custom Icons
 const placeIcon = new L.Icon({
   iconUrl: '/icons/place.png',
   iconSize: [30, 40],
@@ -28,8 +28,10 @@ const hotelIcon = new L.Icon({
 
 export default function FinalMap() {
   const [locations, setLocations] = useState([]);
+  const [routePolyline, setRoutePolyline] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Fetch user places
   useEffect(() => {
     const fetchLocations = async () => {
       try {
@@ -40,9 +42,10 @@ export default function FinalMap() {
           return;
         }
 
-        const response = await axios.get(`http://localhost:5000/api/selections/user/${userId}`);
+        const response = await axios.get(`https://qw3js3n6-5000.inc1.devtunnels.ms/api/selections/user/${userId}`);
         const userPlaces = response.data?.places || [];
-        setLocations(userPlaces.filter(loc => loc.latitude && loc.longitude));
+        const filtered = userPlaces.filter(loc => loc.latitude && loc.longitude);
+        setLocations(filtered);
       } catch (err) {
         console.error('Error fetching locations:', err);
       } finally {
@@ -52,6 +55,36 @@ export default function FinalMap() {
 
     fetchLocations();
   }, []);
+
+  // Fetch proper road route
+  useEffect(() => {
+    const fetchRoute = async () => {
+      if (locations.length < 2) return;
+
+      const coords = locations.map(loc => [loc.longitude, loc.latitude]);
+
+      try {
+        const res = await axios.post(
+          'https://api.openrouteservice.org/v2/directions/driving-car/geojson',
+          { coordinates: coords },
+          {
+            headers: {
+              Authorization: '5b3ce3597851110001cf624894fd3914cb054462b18d00c5d1eb7b13', // 🚨 Replace this
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        const routeGeoJSON = res.data;
+        const lineCoords = routeGeoJSON.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
+        setRoutePolyline(lineCoords);
+      } catch (err) {
+        console.error('Error fetching driving route:', err);
+      }
+    };
+
+    fetchRoute();
+  }, [locations]);
 
   if (loading) return <div className="text-center mt-10 text-lg">Loading map data...</div>;
 
@@ -66,8 +99,6 @@ export default function FinalMap() {
   const center = locations.length > 0
     ? [locations[0].latitude, locations[0].longitude]
     : [12.9141, 74.8560]; // Default to Mangalore
-
-  const routeCoordinates = locations.map(loc => [loc.latitude, loc.longitude]);
 
   const openGoogleMaps = (lat, lng) => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
@@ -102,8 +133,8 @@ export default function FinalMap() {
           </Marker>
         ))}
 
-        {routeCoordinates.length > 1 && (
-          <Polyline positions={routeCoordinates} color="blue" weight={4} />
+        {routePolyline && (
+          <Polyline positions={routePolyline} color="blue" weight={5} />
         )}
       </MapContainer>
     </div>
