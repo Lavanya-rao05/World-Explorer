@@ -16,7 +16,8 @@ app.use(express.json());
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://qw3js3n6-5173.inc1.devtunnels.ms'
+  'https://qw3js3n6-5173.inc1.devtunnels.ms',
+  'https://worldexplorer-umber.vercel.app'
 ];
 
 app.use(cors({
