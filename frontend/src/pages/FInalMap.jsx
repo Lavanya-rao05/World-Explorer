@@ -69,7 +69,7 @@ export default function FinalMap() {
           { coordinates: coords },
           {
             headers: {
-              Authorization: '5b3ce3597851110001cf624894fd3914cb054462b18d00c5d1eb7b13', // 🚨 Replace this
+              Authorization: import.meta.env.VITE_ORS_API_KEY, // 🚨 Replace this
               'Content-Type': 'application/json',
             },
           }
