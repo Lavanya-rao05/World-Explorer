@@ -1,4 +1,4 @@
-# 🌍 WorldExplorer – AI Travel Planner with Maps, Routes, and API Integrations
+# 🌍 WorldExplorer – Travel Planner with Maps, Routes, and API Integrations
 
 WorldExplorer is your **smart travel buddy** built with the MERN stack. It helps users plan personalized travel itineraries using **AI**, **interactive maps**, and **real-time data from APIs**. No stress, no chaos — just good vibes and perfect trips.
 
@@ -11,7 +11,6 @@ WorldExplorer is your **smart travel buddy** built with the MERN stack. It helps
 - 🧭 **Smart Route Optimization** for best travel paths
 - 🍽️ **Nearby Restaurants & Hotels** using external APIs
 - ✈️ **“Plan My Trip” Form** — Input your details and boom: itinerary ready
-- 🌤️ Weather info, ratings, location data — all in one
 - 🎨 Aesthetic UI with smooth animations (Tailwind + Framer Motion)
 
 ---
@@ -24,7 +23,7 @@ WorldExplorer is your **smart travel buddy** built with the MERN stack. It helps
 | Backend      | Node.js + Express          |
 | Database     | MongoDB                    |
 | AI Magic     | Gemini/GPT (for recommendations & summaries) |
-| Maps & Places| Google Maps API, OpenWeather, etc. |
+| Maps & Places| Google Maps API, OpenRouteService etc. |
 | Hosting      | Vercel / Render (optional) |
 
 ---
@@ -41,10 +40,8 @@ WorldExplorer is your **smart travel buddy** built with the MERN stack. It helps
    - Destination
    - Travel dates
    - Interests
-   - Budget
 2. AI creates a personalized itinerary
 3. View full plan with map + places + hotel/food recs
 
 ---
-
 
