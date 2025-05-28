@@ -21,7 +21,7 @@ export default function Restaurants() {
     const fetchRestaurants = async () => {
       try {
         const res = await axios.get(
-          `https://qw3js3n6-5000.inc1.devtunnels.ms/api/restaurants`,
+          `https://world-explorer-hvpi.onrender.com/api/restaurants`,
           {
             params: { city: tripForm.city },
           }

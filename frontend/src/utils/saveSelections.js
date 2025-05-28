@@ -51,7 +51,7 @@ export const saveSelections = async () => {
   try {
     console.log("Payload being sent:", payload);
     await axios.post(
-      "https://qw3js3n6-5000.inc1.devtunnels.ms/api/selections",
+      "https://world-explorer-hvpi.onrender.com/api/selections",
       payload
     );
     console.log("Selections saved successfully");

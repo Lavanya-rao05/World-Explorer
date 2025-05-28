@@ -3,6 +3,6 @@ import { getHotelsByCity } from "../controllers/hotelController.js";
 
 const router = express.Router();
 
-router.get("/", getHotelsByCity);  // handles GET /api/hotels?city=...&checkIn=...&checkOut=...
+router.get("/", getHotelsByCity); 
 
 export default router;

@@ -35,7 +35,7 @@ export const getHotelsByCity = async (req, res) => {
     const hotels = paginatedHotels.map((hotel) => {
       const photoRef = hotel.photos?.[0]?.photo_reference || null;
       const proxyPhotoUrl = photoRef
-        ? `https://qw3js3n6-5000.inc1.devtunnels.ms/media/places-photo?reference=${photoRef}`
+        ? `https://world-explorer-hvpi.onrender.com/media/places-photo?reference=${photoRef}`
         : null;
 
       return {

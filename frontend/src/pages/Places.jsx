@@ -17,7 +17,7 @@ export default function Places() {
 
         // TODO: Optional — Replace hardcoded coordinates with real ones using a geocode API if needed
         const response = await axios.get(
-          "https://qw3js3n6-5000.inc1.devtunnels.ms/api/places",
+          "https://world-explorer-hvpi.onrender.com/api/places",
           {
             params: {
               textQuery: `best places in ${city}`,

@@ -20,7 +20,7 @@ const Explore = () => {
 
       if (category === "hotels") {
         res = await axios.get(
-          "https://qw3js3n6-5000.inc1.devtunnels.ms/api/hotels",
+          "https://world-explorer-hvpi.onrender.com/api/hotels",
           {
             params: { city: location },
           }
@@ -28,7 +28,7 @@ const Explore = () => {
         setResults(res.data.hotels || []);
       } else if (category === "restaurants") {
         res = await axios.get(
-          "https://qw3js3n6-5000.inc1.devtunnels.ms/api/restaurants",
+          "https://world-explorer-hvpi.onrender.com/api/restaurants",
           {
             params: { city: location },
           }
@@ -36,7 +36,7 @@ const Explore = () => {
         setResults(res.data.restaurants || []);
       } else {
         res = await axios.get(
-          "https://qw3js3n6-5000.inc1.devtunnels.ms/api/places",
+          "https://world-explorer-hvpi.onrender.com/api/places",
           {
             params: {
               textQuery: `best places in ${location}`,

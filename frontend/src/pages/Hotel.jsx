@@ -18,7 +18,7 @@ export default function Hotels() {
     const fetchHotels = async () => {
       try {
         const res = await axios.get(
-          "https://qw3js3n6-5000.inc1.devtunnels.ms/api/hotels",
+          "https://world-explorer-hvpi.onrender.com/api/hotels",
           {
             params: { city: tripForm.city },
           }

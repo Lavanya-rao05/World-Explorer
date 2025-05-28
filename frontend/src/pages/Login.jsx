@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://qw3js3n6-5000.inc1.devtunnels.ms/api/auth/login",
+        "https://world-explorer-hvpi.onrender.com/api/auth/login",
         { email, password }
       );
       login(data);

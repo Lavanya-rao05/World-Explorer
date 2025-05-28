@@ -42,7 +42,7 @@ export default function FinalMap() {
           return;
         }
 
-        const response = await axios.get(`https://qw3js3n6-5000.inc1.devtunnels.ms/api/selections/user/${userId}`);
+        const response = await axios.get(`https://world-explorer-hvpi.onrender.com/api/selections/user/${userId}`);
         const userPlaces = response.data?.places || [];
         const filtered = userPlaces.filter(loc => loc.latitude && loc.longitude);
         setLocations(filtered);

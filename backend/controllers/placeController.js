@@ -40,7 +40,7 @@ export const getPlacesByQuery = async (req, res) => {
     const simplifiedPlaces = rawPlaces.map((place) => {
       const photoRef = place.photos?.[0]?.photo_reference || null;
       const photoUrl = photoRef
-        ? `https://qw3js3n6-5000.inc1.devtunnels.ms/media/places-photo?reference=${photoRef}`
+        ? `https://world-explorer-hvpi.onrender.com/media/places-photo?reference=${photoRef}`
         : null;
 
       placeMap[place.place_id] = {

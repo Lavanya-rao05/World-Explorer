@@ -22,7 +22,7 @@ const Register = () => {
     }
 
     try {
-      const { data } = await axios.post('https://qw3js3n6-5000.inc1.devtunnels.ms/api/auth/register', { name, email, password });
+      const { data } = await axios.post('https://world-explorer-hvpi.onrender.com/api/auth/register', { name, email, password });
       login(data); // Save user info and token in context/localStorage
       navigate('/planner'); // Redirect after registration
     } catch (err) {

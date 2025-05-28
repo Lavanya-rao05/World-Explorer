@@ -45,7 +45,7 @@ export const getRestaurantsByCity = async (req, res) => {
               : "Closed"
             : "Unknown",
         photoUrl: photoRef
-          ? `https://qw3js3n6-5000.inc1.devtunnels.ms/media/places-photo?reference=${photoRef}`
+          ? `https://world-explorer-hvpi.onrender.com/media/places-photo?reference=${photoRef}`
           : null,
       };
     });
